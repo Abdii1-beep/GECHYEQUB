@@ -1,0 +1,44 @@
+{
+  "name": "@ethio-lottery/web",
+  "version": "1.0.0",
+  "description": "Frontend application for Ethiopian Car Lottery Platform",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "typecheck": "tsc",
+    "preview": "vite preview",
+    "deploy": "wrangler pages publish ./dist"
+  },
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "typecheck": "tsc",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
+    "@types/node": "^26.4.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "class-variance-authority": "^0.7.0",
+    "date-fns": "^3.3.0",
+    "i18next": "^26.4.1",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "lucide-react": "^0.320.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^17.0.13",
+    "react-router-dom": "^6.20.1",
+    "tailwindcss": "^3.4.19"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "autoprefixer": "^10.5.4",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "postcss": "^8.5.26",
+    "typescript": "^5.3.2",
+    "vite": "^5.4.21"
+  }
+}

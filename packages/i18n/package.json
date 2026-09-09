@@ -1,0 +1,6 @@
+{
+  "name": "@ethio-lottery/i18n",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Internationalization utilities for the Ethiopian Car Lottery platform"
+}

@@ -1,0 +1,23 @@
+{
+  "vehicle": "Mobiilaa",
+  "vehicles": "Mobiilaa",
+  "brand": "Madda",
+  "make": "Madda",
+  "model": "Madda",
+  "year": "Waggaa",
+  "color": "Raga",
+  "engine": "Injinii",
+  "transmission": "Tiraansmishinii",
+  "fuelType": "Gosa qabxii",
+  "condition": "Haala",
+  "vehicleValue": "Gatii mobiilaa",
+  "vehicleLocation": "Jalqaba mobiilaa",
+  "vehicleDocuments": "Dooqii mobiilaa",
+  "vinNumber": "Lakkoofsa VIN",
+  "chassisNumber": "Lakkoofsa chaasii",
+  "registrationInfo": "Odeeffannoo galmeessuu",
+  "available": "Argama jira",
+  "sold": "Bitameera",
+  "reserved": "Eegameera",
+  "vehicleDetails": "Xiqqeeffannoo mobiilaa"
+}

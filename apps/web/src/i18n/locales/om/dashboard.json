@@ -1,0 +1,17 @@
+{
+  "title": "Daashibordii",
+  "welcome": "Baga dhufu",
+  "myTickets": "Tikeetii kiyya",
+  "activeCampaigns": "Dhiibaa hojjataman",
+  "totalSpent": "Waliigaltee kan kaffalte",
+  "recentActivity": "Hojjechoota cimaa",
+  "quickActions": "Tajaajila cimaa",
+  "viewAllCampaigns": "Dhiibaa hunda ilaalu",
+  "buyTicket": "Tikeetii bitadhu",
+  "noActiveCampaigns": "Yeroon dhiibaa hojjatama hin jiru.",
+  "noTickets": "Tikeetii hin bitanne.",
+  "ticketId": "ID tikeetii",
+  "campaign": "Dhiibaa",
+  "purchaseDate": "Guyyaa bitachaa",
+  "ticketStatus": "Haala tikeetii"
+}

@@ -1,0 +1,21 @@
+{
+  "home": "Home",
+  "dashboard": "Dashboard",
+  "profile": "Profile",
+  "campaigns": "Campaigns",
+  "tickets": "Tickets",
+  "payments": "Payments",
+  "winners": "Winners",
+  "support": "Support",
+  "settings": "Settings",
+  "language": "Language",
+  "logout": "Logout",
+  "login": "Login",
+  "register": "Register",
+  "about": "About",
+  "howItWorks": "How It Works",
+  "faq": "FAQ",
+  "contact": "Contact",
+  "terms": "Terms and Conditions",
+  "privacy": "Privacy Policy"
+}

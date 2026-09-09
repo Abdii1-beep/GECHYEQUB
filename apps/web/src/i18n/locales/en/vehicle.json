@@ -1,0 +1,23 @@
+{
+  "vehicle": "Vehicle",
+  "vehicles": "Vehicles",
+  "brand": "Brand",
+  "make": "Make",
+  "model": "Model",
+  "year": "Year",
+  "color": "Color",
+  "engine": "Engine",
+  "transmission": "Transmission",
+  "fuelType": "Fuel Type",
+  "condition": "Condition",
+  "vehicleValue": "Vehicle Value",
+  "vehicleLocation": "Vehicle Location",
+  "vehicleDocuments": "Vehicle Documents",
+  "vinNumber": "VIN Number",
+  "chassisNumber": "Chassis Number",
+  "registrationInfo": "Registration Information",
+  "available": "Available",
+  "sold": "Sold",
+  "reserved": "Reserved",
+  "vehicleDetails": "Vehicle Details"
+}

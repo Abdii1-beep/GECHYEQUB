@@ -1,0 +1,31 @@
+{
+  "name": "ethiopian-car-lottery",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Ethiopian Car Lottery Management Platform - Production Grade",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "setup": "cd D:\\CARAPP && pnpm install",
+    "dev": "concurrently \"cd D:\\CARAPP\\api && pnpm dev\" \"cd D:\\CARAPP\\web && pnpm dev\"",
+    "build": "pnpm -r run build",
+    "lint": "pnpm -r run lint",
+    "typecheck": "pnpm -r run typecheck",
+    "test": "pnpm -r run test",
+    "migrate": "prisma migrate deploy",
+    "generate": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "dotenv": "^16.3.1",
+    "prisma": "^5.2.0"
+  },
+  "allowScripts": {
+    "@prisma/client@5.22.0": true,
+    "@prisma/client@7.10.0": true,
+    "@prisma/engines@5.22.0": true,
+    "prisma@5.22.0": true
+  }
+}

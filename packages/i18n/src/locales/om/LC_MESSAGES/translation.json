@@ -1,0 +1,15 @@
+{
+  "campaign": {
+    "buy_ticket": "Taagan dhacay code",
+    "draw_date": "Fiddo waa'no",
+    "ticket_price": "Codha code",
+    "campaign_status": "Hal waxbarooda"
+  },
+  "ticket": {
+    "payment_success": "Fadlan ka baxay bay dhacayaas",
+    "ticket_issued": "Af somali ah uu buuxyay"
+  },
+  "winner": {
+    "congratulations": "Uushaan wanaagsan!"
+  }
+}

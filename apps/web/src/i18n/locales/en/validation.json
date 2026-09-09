@@ -1,0 +1,23 @@
+{
+  "required": "This field is required",
+  "invalidEmail": "Invalid email address",
+  "invalidPhone": "Invalid phone number",
+  "passwordTooShort": "Password must be at least {{min}} characters",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "invalidFormat": "Invalid format",
+  "outOfRange": "Value must be between {{min}} and {{max}}",
+  "mustBeNumber": "Must be a number",
+  "mustBePositive": "Must be a positive number",
+  "mustBeInteger": "Must be an integer",
+  "invalidDate": "Invalid date",
+  "invalidUrl": "Invalid URL",
+  "tooShort": "Must be at least {{min}} characters",
+  "tooLong": "Must be at most {{max}} characters",
+  "invalidCharacters": "Contains invalid characters",
+  "selectOption": "Please select an option",
+  "acceptTerms": "Please accept the terms and conditions",
+  "invalidVerificationCode": "Invalid verification code",
+  "code": "Code",
+  "fieldRequired": "{{field}} is required",
+  "invalidField": "Invalid {{field}}"
+}

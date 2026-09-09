@@ -1,0 +1,15 @@
+{
+  "campaign": {
+    "buy_ticket": "购买票务",
+    "draw_date": "开奖日期",
+    "ticket_price": "票价",
+    "campaign_status": "活动状态"
+  },
+  "ticket": {
+    "payment_success": "支付成功",
+    "ticket_issued": "票已发行"
+  },
+  "winner": {
+    "congratulations": "恭喜! 您是中奖者!"
+  }
+}

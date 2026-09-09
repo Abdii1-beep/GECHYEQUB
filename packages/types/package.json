@@ -1,0 +1,6 @@
+{
+  "name": "@ethio-lottery/types",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Shared TypeScript types for the Ethiopian Car Lottery platform"
+}

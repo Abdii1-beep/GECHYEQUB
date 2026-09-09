@@ -1,0 +1,15 @@
+{
+  "campaign": {
+    "buy_ticket": "Buy Ticket",
+    "draw_date": "Draw Date",
+    "ticket_price": "Ticket Price",
+    "campaign_status": "Campaign Status"
+  },
+  "ticket": {
+    "payment_success": "Payment Successful",
+    "ticket_issued": "Ticket Issued"
+  },
+  "winner": {
+    "congratulations": "Congratulations! You are a winner!"
+  }
+}

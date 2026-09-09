@@ -1,0 +1,23 @@
+{
+  "vehicle": "መኪና",
+  "vehicles": "መኪናዎች",
+  "brand": "ምልክ",
+  "make": "ማኑፋክቸር",
+  "model": "ሞዴል",
+  "year": "ዓመት",
+  "color": "ቀለም",
+  "engine": "ሞተር",
+  "transmission": "ትራንስሚሽን",
+  "fuelType": "የነዳጅ ዓይነት",
+  "condition": "ሁኔታ",
+  "vehicleValue": "የመኪና ዋጋ",
+  "vehicleLocation": "የመኪና አካባቢ",
+  "vehicleDocuments": "የመኪና ሰነዶች",
+  "vinNumber": "የVIN ቁጥር",
+  "chassisNumber": "የቻሲስ ቁጥር",
+  "registrationInfo": "የምዝገባ መረጃ",
+  "available": "የሚገኝ",
+  "sold": "ተሸግሟል",
+  "reserved": "ተያዝ",
+  "vehicleDetails": "የመኪና ዝርዝሮች"
+}

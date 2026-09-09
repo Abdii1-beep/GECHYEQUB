@@ -1,0 +1,17 @@
+{
+  "title": "ዳሽቦርድ",
+  "welcome": "እንኳን ደህና መጡ",
+  "myTickets": "የኔ ቲኬቶች",
+  "activeCampaigns": "ጥቅም ላይ ያሉ ዘመቻዎች",
+  "totalSpent": "ጠቅላላ የተከፈለ",
+  "recentActivity": "የቅርብ እንቅስቃሴ",
+  "quickActions": "ፈጣን ተግባራት",
+  "viewAllCampaigns": "ሁሉንም ዘመቻዎች አሳይ",
+  "buyTicket": "ቲኬት ይግዙ",
+  "noActiveCampaigns": "በአሁኑ ጊዜ ምንም ጥቅም ላይ ያሉ ዘመቻዎች የሉም።",
+  "noTickets": "ምንም ቲኬቶች አልገዙም።",
+  "ticketId": "የቲኬት መለያ",
+  "campaign": "ዘመቻ",
+  "purchaseDate": "የግዢ ቀን",
+  "ticketStatus": "የቲኬት ሁኔታ"
+}

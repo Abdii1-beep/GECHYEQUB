@@ -1,0 +1,15 @@
+{
+  "campaign": {
+    "buy_ticket": "ተለም አምታ",
+    "draw_date": "ቀን ተገናኙ",
+    "ticket_price": "ተልቅ ቀይ",
+    "campaign_status": "ቀንደር ሰንበት"
+  },
+  "ticket": {
+    "payment_success": "ተቀብር ተቋማይ",
+    "ticket_issued": "አሁን ተርምስ ተለያዩ"
+  },
+  "winner": {
+    "congratulations": "ምንጭ! ነቢር ነቢር!"
+  }
+}

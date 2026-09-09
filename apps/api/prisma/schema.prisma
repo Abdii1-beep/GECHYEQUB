@@ -1,0 +1,488 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// ENUMS
+// ==========================================
+
+enum Role {
+  SUPER_ADMIN
+  LOTTERY_MANAGER
+  FINANCE_OFFICER
+  KYC_OFFICER
+  DRAW_OFFICER
+  AUDITOR
+  CUSTOMER
+  CUSTOMER_SUPPORT
+  CONTENT_MANAGER
+}
+
+enum DrawState {
+  DRAFT
+  PREPARED
+  EXECUTING
+  COMPLETED
+  FAILED
+  SCHEDULED
+  LOCKED
+  DRAWING
+  VERIFIED
+  PUBLISHED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  INITIATED
+  PENDING
+  SUCCESS
+  FAILED
+  EXPIRED
+  REFUNDED
+  DISPUTED
+}
+
+enum TicketStatus {
+  RESERVED
+  PENDING_PAYMENT
+  PAID
+  ACTIVE
+  CANCELLED
+  REFUNDED
+  WINNING
+  NON_WINNING
+  INVALID
+}
+
+enum CampaignStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+  DRAWN
+  COMPLETED
+  CANCELLED
+}
+
+enum KycStatus {
+  NOT_STARTED
+  PENDING
+  VERIFIED
+  REJECTED
+  EXPIRED
+}
+
+enum PaymentProvider {
+  STRIPE
+  CBE
+  BIRR
+}
+
+// ==========================================
+// CORE: USERS & AUTH
+// ==========================================
+
+model SystemSetting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String?
+  description String?
+  isSensitive Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model User {
+  id            String   @id @default(uuid())
+  username      String   @unique
+  email         String   @unique
+  passwordHash  String
+  role          Role     @default(CUSTOMER)
+  status        String   @default("ACTIVE")
+  emailVerified Boolean  @default(false)
+  phoneVerified Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  customerProfileId  String?          @unique
+  customerProfile    CustomerProfile? @relation(fields: [customerProfileId], references: [id])
+  customerId         String?          @unique
+  kycRecordId        String?          @unique
+  kycRecord          KycRecord?       @relation(fields: [kycRecordId], references: [id])
+  kycId              String?          @unique
+  auditLogs          AuditLog[]
+  fraudFlags         FraudFlag[]      @relation("UserFraudFlags")
+  reviewedFraudFlags FraudFlag[]      @relation("ReviewedFraudFlags")
+}
+
+model CustomerProfile {
+  id          String    @id @default(uuid())
+  userId      String?   @unique
+  fullName    String
+  dateOfBirth DateTime?
+  phone       String
+  email       String?
+  address     String?
+  nationality String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user    User?
+  tickets Ticket[]
+  orders  Order[]
+  winners Winner[]
+}
+
+model KycRecord {
+  id                   String    @id @default(uuid())
+  userId               String?   @unique
+  fullName             String
+  dateOfBirth          DateTime?
+  phone                String
+  email                String
+  address              String
+  nationalId           String?
+  idVerificationStatus KycStatus @default(NOT_STARTED)
+  idDocumentUrl        String?
+  verificationDate     DateTime?
+  verifiedBy           String?
+  rejectionReason      String?
+  verificationNotes    String?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  user User?
+}
+
+// ==========================================
+// CAMPAIGN & VEHICLE MANAGEMENT
+// ==========================================
+
+model LotteryCampaign {
+  id               String         @id @default(uuid())
+  name             String
+  slug             String         @unique
+  description      String?
+  systemName       String         @default("ETHIO CAR LOTTERY")
+  status           CampaignStatus @default(DRAFT)
+  ticketPrice      Int
+  maxTickets       Int
+  startDate        DateTime
+  endDate          DateTime
+  drawDate         DateTime?
+  eligibilityRules Json           @default("{}")
+  publishedAt      DateTime?
+  publishedBy      String?
+  cancelledAt      DateTime?
+  cancelledBy      String?
+  createdBy        String
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  vehicles Vehicle[]
+  tickets  Ticket[]
+  draws    Draw[]
+}
+
+model Vehicle {
+  id               String           @id @default(uuid())
+  make             String
+  model            String
+  year             Int
+  color            String
+  engineInfo       String?
+  transmission     String?
+  fuelType         String?
+  vinChassisNumber String           @unique
+  registrationInfo String?
+  vehicleCondition String           @default("AVAILABLE")
+  location         String?
+  declaredValue    Int
+  status           String           @default("AVAILABLE")
+  images           Json             @default("[]")
+  documents        Json             @default("[]")
+  campaignId       String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  LotteryCampaign  LotteryCampaign? @relation(fields: [campaignId], references: [id])
+  drawResults      DrawResult[]
+  winners          Winner[]
+}
+
+// ==========================================
+// TICKET MANAGEMENT
+// ==========================================
+
+model Ticket {
+  id               String       @id @default(uuid())
+  campaignId       String
+  customerId       String
+  purchaseId       String       @unique
+  paymentId        String?      @unique
+  issueTimestamp   DateTime
+  status           TicketStatus
+  verificationHash String
+  qrCodeToken      String       @unique
+  drawEligibility  Boolean      @default(false)
+  drawId           String?      @unique
+  drawResultHash   String?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  LotteryCampaign    LotteryCampaign?    @relation(fields: [campaignId], references: [id])
+  customer           CustomerProfile     @relation(fields: [customerId], references: [id])
+  drawEligibleTicket DrawEligibleTicket?
+  drawResult         DrawResult?
+  winner             Winner?
+}
+
+// ==========================================
+// PAYMENT SYSTEM
+// ==========================================
+
+model Order {
+  id                  String               @id @default(uuid())
+  customerId          String?
+  ticketId            String?              @unique
+  amount              Int
+  currency            String               @default("ETB")
+  provider            PaymentProvider
+  providerTxnId       String?
+  status              PaymentStatus        @default(INITIATED)
+  paymentMethod       String?
+  failureReason       String?
+  receiptUrl          String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  customer            CustomerProfile?     @relation(fields: [customerId], references: [id])
+  paymentTransactions PaymentTransaction[]
+}
+
+model PaymentTransaction {
+  id               String          @id @default(uuid())
+  orderId          String          @unique
+  provider         PaymentProvider
+  providerTxnId    String?         @unique
+  amount           Int
+  currency         String          @default("ETB")
+  status           PaymentStatus
+  requestMetadata  Json            @default("{}")
+  responseMetadata Json            @default("{}")
+  callbackStatus   String?
+  receivedAt       DateTime?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  order            Order           @relation(fields: [orderId], references: [id])
+}
+
+model OtpVerification {
+  id           String   @id @default(uuid())
+  phoneNumber  String
+  otp          String
+  orderId      String   @unique
+  expiresAt    DateTime
+  verified     Boolean  @default(false)
+  verifiedAt   DateTime?
+  createdAt    DateTime @default(now())
+}
+
+// ==========================================
+// DRAW ENGINE
+// ==========================================
+
+model Draw {
+  id                  String               @id @default(uuid())
+  campaignId          String
+  state               DrawState            @default(DRAFT)
+  eligibleTicketCount Int
+  commitmentHash      String
+  winningTicketId     String?              @unique
+  drawTimestamp       DateTime?
+  configuration       Json                 @default("{}")
+  verificationRecord  Json                 @default("{}")
+  seed                String?
+  scheduledDate       DateTime?
+  preparedBy          String?
+  executedBy          String?
+  executedAt          DateTime?
+  vehicleCount        Int?
+  status              String?              @default("PREPARED")
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  eligibleTickets     DrawEligibleTicket[]
+  results             DrawResult[]
+  winners             Winner[]
+  LotteryCampaign     LotteryCampaign      @relation(fields: [campaignId], references: [id])
+}
+
+model DrawEligibleTicket {
+  id         String   @id @default(uuid())
+  ticketId   String   @unique
+  drawId     String
+  orderIndex Int
+  createdAt  DateTime @default(now())
+  draw       Draw     @relation(fields: [drawId], references: [id])
+  ticket     Ticket   @relation(fields: [ticketId], references: [id])
+}
+
+model DrawResult {
+  id                 String    @id @default(uuid())
+  drawId             String
+  ticketId           String    @unique
+  vehicleId          String
+  position           Int
+  drawHash           String
+  verifiedAt         DateTime?
+  verificationStatus String    @default("PENDING")
+  createdAt          DateTime  @default(now())
+  draw               Draw      @relation(fields: [drawId], references: [id])
+  ticket             Ticket    @relation(fields: [ticketId], references: [id])
+  vehicle            Vehicle   @relation(fields: [vehicleId], references: [id])
+}
+
+// ==========================================
+// WINNER MANAGEMENT
+// ==========================================
+
+model Winner {
+  id                    String          @id @default(uuid())
+  drawId                String
+  ticketId              String          @unique
+  customerId            String
+  vehicleId             String?
+  verificationStatus    String          @default("SELECTED")
+  notificationStatus    String          @default("PENDING")
+  claimStatus           String          @default("NOT_CLAIMED")
+  verificationDocuments Json            @default("{}")
+  verificationTimestamp DateTime?
+  approvalOfficer       String?
+  rejectionReason       String?
+  deliveryStatus        String          @default("PENDING")
+  deliveredAt           DateTime?
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+
+  draw                  Draw            @relation(fields: [drawId], references: [id])
+  ticket                Ticket          @relation(fields: [ticketId], references: [id])
+  customer              CustomerProfile @relation(fields: [customerId], references: [id])
+  vehicle               Vehicle?        @relation(fields: [vehicleId], references: [id])
+}
+
+// ==========================================
+// REFUNDS
+// ==========================================
+
+model Refund {
+  id          String    @id @default(uuid())
+  ticketId    String    @unique
+  amount      Int
+  currency    String    @default("ETB")
+  reason      String
+  status      String    @default("PENDING")
+  processedAt DateTime?
+  processedBy String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// ==========================================
+// FRAUD DETECTION
+// ==========================================
+
+model FraudFlag {
+  id          String        @id @default(uuid())
+  userId      String
+  reason      String
+  severity    FraudSeverity @default(MEDIUM)
+  status      FraudStatus   @default(ACTIVE)
+  flaggedBy   String
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  resolution  String?
+  actionTaken String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  user     User  @relation("UserFraudFlags", fields: [userId], references: [id])
+  reviewer User? @relation("ReviewedFraudFlags", fields: [reviewedBy], references: [id])
+}
+
+enum FraudSeverity {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum FraudStatus {
+  ACTIVE
+  RESOLVED
+  DISMISSED
+}
+
+// ==========================================
+// NOTIFICATIONS
+// ==========================================
+
+model Notification {
+  id           String    @id @default(uuid())
+  userId       String
+  type         String
+  title        String
+  message      String
+  data         Json      @default("{}")
+  read         Boolean   @default(false)
+  sentChannels Json      @default("[]")
+  sentAt       DateTime?
+  createdAt    DateTime  @default(now())
+}
+
+// ==========================================
+// FRAUD & SECURITY
+// ==========================================
+
+model FraudAlert {
+  id             String    @id @default(uuid())
+  userId         String?
+  type           String
+  severity       String    @default("MEDIUM")
+  title          String
+  description    String
+  evidence       Json      @default("{}")
+  status         String    @default("OPEN")
+  investigatedBy String?
+  resolvedAt     DateTime?
+  resolvedReason String?
+  createdAt      DateTime  @default(now())
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  userId      String
+  role        Role
+  action      String
+  entity      String
+  entityId    String
+  timestamp   DateTime @default(now())
+  ipAddress   String?
+  userAgent   String?
+  requestId   String
+  beforeValue Json?
+  afterValue  Json?
+  result      String
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model SoftDeleteLog {
+  id         String   @id @default(uuid())
+  entityType String
+  entityId   String
+  deletedAt  DateTime
+  deletedBy  String
+  reason     String?
+}

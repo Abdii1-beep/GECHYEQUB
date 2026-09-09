@@ -1,0 +1,23 @@
+{
+  "required": "Kun qabxii barbaachaa",
+  "invalidEmail": "Iimeelii dogoggoraa",
+  "invalidPhone": "Lakkoofsa bilbilaa dogoggoraa",
+  "passwordTooShort": "Jecha iccii qubee {{min}} ol qabaachaa",
+  "passwordsDoNotMatch": "Jecha icciti wal morkii hin qabu",
+  "invalidFormat": "Qabiyyee dogoggoraa",
+  "outOfRange": "Gatii {{min}} fi {{max}} gidduu ta'uu qaba",
+  "mustBeNumber": "Lakkoofsa ta'uu qaba",
+  "mustBePositive": "Lakkoofsa posotive ta'uu qaba",
+  "mustBeInteger": "Intijarii ta'uu qaba",
+  "invalidDate": "Guyyaa dogoggoraa",
+  "invalidUrl": "URL dogoggoraa",
+  "tooShort": "Qubee {{min}} ol qabaachaa",
+  "tooLong": "Qubee {{max}} gadi ta'uu qaba",
+  "invalidCharacters": "Qubee dogoggoraa qaba",
+  "selectOption": "Filannoo filadhu",
+  "acceptTerms": "Qabxii fi eebbaa fayyadami",
+  "invalidVerificationCode": "Koodii mirkaneessuu dogoggoraa",
+  "code": "Koodii",
+  "fieldRequired": "{{field}} barbaachaa",
+  "invalidField": "{{field}} dogoggoraa"
+}

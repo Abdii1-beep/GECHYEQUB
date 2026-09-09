@@ -1,0 +1,23 @@
+{
+  "required": "ይህ መስክ ያስፈልጋል",
+  "invalidEmail": "የተሳሳተ ኢሜይል አድራሻ",
+  "invalidPhone": "የተሳሳተ ስልክ ቁጥር",
+  "passwordTooShort": "የይለፍ ቃል ቢያንስ {{min}} ቁምፎች መሆን አለበት",
+  "passwordsDoNotMatch": "የይለፍ ቃሎች አይደምስሱም",
+  "invalidFormat": "የተሳሳተ ቅርጸት",
+  "outOfRange": "እሴት ቢያንስ {{min}} እና ከፍተኛ {{max}} መሆን አለበት",
+  "mustBeNumber": "ቁጥር መሆን አለበት",
+  "mustBePositive": "ቁጥር አዎን መሆን አለበት",
+  "mustBeInteger": "ኢንቲጀር መሆን አለበት",
+  "invalidDate": "የተሳሳተ ቀን",
+  "invalidUrl": "የተሳሳተ URL",
+  "tooShort": "ቢያንስ {{min}} ቁምፎች መሆን አለበት",
+  "tooLong": "ከፍተኛ {{max}} ቁምፎች መሆን አለበት",
+  "invalidCharacters": "የተሳሳተ ቁምፎች ይዟል",
+  "selectOption": "እባክዎ አማራጭ ይምረጡ",
+  "acceptTerms": "እባክዎ ውሎችን እና ሁኔታዎችን ይቀበሉ",
+  "invalidVerificationCode": "የተሳሳተ የማረጋገጫ ኮድ",
+  "code": "ኮድ",
+  "fieldRequired": "{{field}} ያስፈልጋል",
+  "invalidField": "የተሳሳተ {{field}}"
+}

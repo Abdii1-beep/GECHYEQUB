@@ -1,0 +1,6 @@
+{
+  "name": "@ethio-lottery/config",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Configuration utilities for the Ethiopian Car Lottery platform"
+}

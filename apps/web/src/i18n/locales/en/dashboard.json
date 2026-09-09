@@ -1,0 +1,17 @@
+{
+  "title": "Dashboard",
+  "welcome": "Welcome",
+  "myTickets": "My Tickets",
+  "activeCampaigns": "Active Campaigns",
+  "totalSpent": "Total Spent",
+  "recentActivity": "Recent Activity",
+  "quickActions": "Quick Actions",
+  "viewAllCampaigns": "View All Campaigns",
+  "buyTicket": "Buy Ticket",
+  "noActiveCampaigns": "No active campaigns at the moment.",
+  "noTickets": "You haven't purchased any tickets yet.",
+  "ticketId": "Ticket ID",
+  "campaign": "Campaign",
+  "purchaseDate": "Purchase Date",
+  "ticketStatus": "Ticket Status"
+}

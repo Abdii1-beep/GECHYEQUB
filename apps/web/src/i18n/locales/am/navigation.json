@@ -1,0 +1,21 @@
+{
+  "home": "ቤት",
+  "dashboard": "ዳሽቦርድ",
+  "profile": "መገለጫ",
+  "campaigns": "ዘመቻዎች",
+  "tickets": "ቲኬቶች",
+  "payments": "ክፍያዎች",
+  "winners": "አሸናፊዎች",
+  "support": "ድጋፍ",
+  "settings": "ቅንብሮች",
+  "language": "ቋንቋ",
+  "logout": "ውጣ",
+  "login": "ግባ",
+  "register": "መዝግብ",
+  "about": "ስለ",
+  "howItWorks": "እንዴት ይሰራል",
+  "faq": "ተየው ጥያቄዎች",
+  "contact": "ያግኙን",
+  "terms": "ውሎች እና ሁኔታዎች",
+  "privacy": "የግል የሚስጥር ፖሊሲ"
+}

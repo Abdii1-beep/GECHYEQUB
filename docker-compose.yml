@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: carapp-postgres
+    environment:
+      POSTGRES_USER: ${DB_USER:-carapp}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-carapp_password}
+      POSTGRES_DB: ${DB_NAME:-carapp_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-carapp}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - carapp-network
+
+  # Redis for caching and sessions
+  redis:
+    image: redis:7-alpine
+    container_name: carapp-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - carapp-network
+
+  # API Backend
+  api:
+    build:
+      context: .
+      target: api-production
+      dockerfile: Dockerfile
+    container_name: carapp-api
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${DB_USER:-carapp}:${DB_PASSWORD:-carapp_password}@postgres:5432/${DB_NAME:-carapp_db}
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-your-super-secret-refresh-key-change-in-production}
+      QR_SECRET_KEY: ${QR_SECRET_KEY:-your-qr-secret-key-change-in-production}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    volumes:
+      - api_logs:/app/logs
+    networks:
+      - carapp-network
+    restart: unless-stopped
+
+  # Web Frontend
+  web:
+    build:
+      context: .
+      target: web-production
+      dockerfile: Dockerfile
+    container_name: carapp-web
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+    networks:
+      - carapp-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  api_logs:
+    driver: local
+
+networks:
+  carapp-network:
+    driver: bridge
