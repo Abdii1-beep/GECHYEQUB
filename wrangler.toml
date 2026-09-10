@@ -1,0 +1,11 @@
+name = "gechyequb2026-frontend"
+compatibility_date = "2024-01-01"
+
+# Cloudflare Pages configuration – static site
+[site]
+# Directory that contains the built assets
+bucket = "apps/web/dist"
+
+# Build settings used by Pages (optional – Cloudflare can run this command)
+[build]
+command = "cd apps/web && npm run build"
